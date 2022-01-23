@@ -33,7 +33,6 @@ jobs:
         with:
           name: 'MY_SECRET_NAME'
           value: 'Lorem ipsun dolor simit'
-          repository: 'tmp-blog-v-team'
           token: ${{ steps.generate_token.outputs.token }}
           org: true
           visibility: 'all'
