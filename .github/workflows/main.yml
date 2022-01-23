@@ -34,5 +34,4 @@ jobs:
           name: 'MY_SECRET_NAME'
           value: 'Lorem ipsun dolor simit'
           token: ${{ steps.generate_token.outputs.token }}
-          org: true
           visibility: 'all'
