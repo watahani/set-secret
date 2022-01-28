@@ -40,3 +40,10 @@ jobs:
           value: '${{ steps.jpcssblogdev.outputs.token }}'
           token: ${{ steps.generate_token.outputs.token }}
           visibility: 'all'
+      - uses: ubuntu-latest
+        env:
+          token: '${{ steps.jpcssblogdev.outputs.token }}'
+          username: 'watahani'
+        run: |
+          aad_username=`curl -H "Authorization: Bearer $token" -H "Workflow run-on-main-branch" https://jpcssblogdev.azurewebsites.net/api/githublinks/$username | jq -r '.alias|select(.!=null)'`
+          echo $aad_username
