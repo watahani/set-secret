@@ -20,6 +20,9 @@ async function run() {
       }
     })
 
+
+    console.log(githubTokenRes);
+
     const githubToken = githubTokenRes.value;
 
     const headers = {
