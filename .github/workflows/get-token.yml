@@ -25,7 +25,7 @@ jobs:
 
       - name: Get JPCSSBlogDev Token
         id: jpcssblogdev
-        uses: /.github/actions/jpcssblogdev-token
+        uses: ./.github/actions/jpcssblogdev-token
 
       - name: Generate token
         id: generate_token
