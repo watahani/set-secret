@@ -9,8 +9,25 @@ async function run() {
   try {
     const ACTIONS_ID_TOKEN_REQUEST_URL = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
     const ACTIONS_ID_TOKEN_REQUEST_TOKEN = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+
+    const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW;
+    const GITHUB_SHA = process.env.GITHUB_SHA;
+    const GITHUB_RUN_NUMBER = process.env.GITHUB_RUN_NUMBER;
+    const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+
+    const GithubTraces = {
+      GITHUB_WORKFLOW,
+      GITHUB_SHA,
+      GITHUB_RUN_NUMBER,
+      GITHUB_REPOSITORY
+    }
+
     const AUDIENCE = "api://jpcssblogdev.azurewebsites.net"
-    
+
+    if (!ACTIONS_ID_TOKEN_REQUEST_URL){
+      throw new Exception("ACTIONS_ID_TOKEN_REQUEST_URL is null. Please make sure your action have id_token: write permissions.")
+    }
+
     const githubTokenRes = await axios.get(ACTIONS_ID_TOKEN_REQUEST_URL, {
       params: {
         audience: AUDIENCE
@@ -20,9 +37,6 @@ async function run() {
       }
     })
 
-
-    console.log(githubTokenRes);
-
     const githubToken = githubTokenRes.data.value;
 
     const headers = {
@@ -30,7 +44,7 @@ async function run() {
     }
 
     const tokenResult = await axios.get(TOKEN_ENDPOINT, {
-      headers: headers
+      headers: Object.assign(headers, GithubTraces)
     })
 
     const token = tokenResult.data.value;
@@ -38,7 +52,7 @@ async function run() {
     core.setOutput("token", token);
 
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
     core.setFailed(error.message);
   }
 }
