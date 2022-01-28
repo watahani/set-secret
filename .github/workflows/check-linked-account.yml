@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: check linked account
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  pull_request_target:
+    types: [opened, reopened, closed]
+
+permissions:
+  contents: read
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}        
+      # Runs a single command using the runners shell
+
+      - name: check linked account
+        id: check_linked_account
+        uses: ./.github/actions/check-linked-account/
+        with:
+          githubId: "watahani"
+          token: ${{ secrets.JPCSSBLOG_DEV_TOKEN }}
+      
+      - name: is fte?
+        env:
+          isLinked: ${{ steps.check_linked_account.outputs.isLinked }}
+        run: |
+          echo "is linked: ${isLinked}"
+      - name: if tool
+        if: steps.check_linked_account.outputs.isLinked == 'true'
+        run:
+          echo "linked"          
+      - name: if tool
+        if: steps.check_linked_account.outputs.isLinked != 'true'
+        run:
+          echo "not linked"          
