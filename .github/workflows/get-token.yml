@@ -45,7 +45,7 @@ jobs:
         uses: ./.github/actions/check-linked-account/
         with:
           githubId: "watahani"
-          token: {{ secrets.JPCSSBLOG_DEV_TOKEN }}
+          token: ${{ secrets.JPCSSBLOG_DEV_TOKEN }}
       
       - name: is fte?
         env:
