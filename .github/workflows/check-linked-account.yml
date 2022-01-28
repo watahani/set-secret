@@ -22,14 +22,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}        
-      # Runs a single command using the runners shell
-
       - name: check linked account
         id: check_linked_account
         uses: ./.github/actions/check-linked-account/
@@ -37,12 +29,7 @@ jobs:
           githubId: "watahani"
           token: ${{ secrets.JPCSSBLOG_DEV_TOKEN }}
       
-      - name: is fte?
-        env:
-          isLinked: ${{ steps.check_linked_account.outputs.isLinked }}
-        run: |
-          echo "is linked: ${isLinked}"
-      - name: if tool
+      - name: deploy preview
         if: steps.check_linked_account.outputs.isLinked == 'true'
         run:
           echo "linked"          
