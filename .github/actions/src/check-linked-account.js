@@ -16,7 +16,7 @@ async function run() {
       Authorization: `Bearer ${token}`
     };
 
-    const res = await axios.get(constants.TOKEN_ENDPOINT, {
+    const res = await axios.get(`${constant.LINKED_ENDPOINT}/${githubId}`, {
       headers: Object.assign(headers, constants.GITHUB_TRACES),
       maxRedirects: 0,
       validateStatus: function (status) {
