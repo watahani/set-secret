@@ -4852,7 +4852,7 @@ async function run() {
     core.setOutput("token", token);
 
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     core.setFailed(error.message);
   }
 }
