@@ -1,0 +1,16 @@
+name: 'check-linked-account'
+description: 'GitHub Action for posting bot comment to pull request'
+inputs:
+  token:
+    description: 'The token any one of jpcssblogdev token, GitHub id_token, AAD access token'
+    required: true
+  githubId:
+    description: 'GitHub Account Name'
+    default: ${{ github.event.pull_request.head.repo.owner.login }}
+    required: true
+outputs:
+  isLinked:
+    description: 'is Microsoft linked account'  
+runs:
+  using: 'node12'
+  main: 'index.js'

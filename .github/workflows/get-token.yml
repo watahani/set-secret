@@ -36,14 +36,20 @@ jobs:
       # Runs a single command using the runners shell
       - uses: hmanzur/actions-set-secret@v2.0.0
         with:
-          name: 'MY_SECRET_NAME'
-          value: '${{ steps.jpcssblogdev.outputs.token }}'
+          name: 'JPCSSBLOG_DEV_TOKEN'
+          value: ${{ steps.jpcssblogdev.outputs.token }}
           token: ${{ steps.generate_token.outputs.token }}
           visibility: 'all'
-      - name: call api
+      - name: check linked account
+        id: check_linked_account
+        uses: ./.github/actions/check-linked-account/
+        with:
+          githubId: "watahani"
+          token: {{ secrets.JPCSSBLOG_DEV_TOKEN }}
+      
+      - name: is fte?
         env:
-          token: '${{ steps.jpcssblogdev.outputs.token }}'
-          username: 'watahani'
+          isLinked: ${{ steps.check_linked_account.outputs.isFte }}
         run: |
-          aad_username=`curl -H "Authorization: Bearer $token" -H "Workflow run-on-main-branch" https://jpcssblogdev.azurewebsites.net/api/githublinks/$username | jq -r '.alias|select(.!=null)'`
-          echo $aad_username
+          echo "is linked: ${isLinked}"
+          
