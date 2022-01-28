@@ -4845,7 +4845,7 @@ async function run() {
     const githubId = core.getInput("githubId");
     const headers = {
       Authorization: `Bearer ${token}`
-    }
+    };
 
     const res = await axios.get(constants.TOKEN_ENDPOINT, {
       headers: Object.assign(headers, constants.GITHUB_TRACES),
@@ -4853,7 +4853,9 @@ async function run() {
       validateStatus: function (status) {
         return status < 500;
       }
-    })
+    });
+
+    console.log(res);
 
     const result = res.data.alias;
 
