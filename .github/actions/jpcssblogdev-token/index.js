@@ -23,7 +23,7 @@ async function run() {
 
     console.log(githubTokenRes);
 
-    const githubToken = githubTokenRes.value;
+    const githubToken = githubTokenRes.data.value;
 
     const headers = {
       Authorization: `Bearer ${githubToken}`
@@ -33,7 +33,7 @@ async function run() {
       headers: headers
     })
 
-    const token = tokenResult.value;
+    const token = tokenResult.data.value;
 
     core.setOutput("token", token);
 
