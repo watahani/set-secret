@@ -52,4 +52,11 @@ jobs:
           isLinked: ${{ steps.check_linked_account.outputs.isLinked }}
         run: |
           echo "is linked: ${isLinked}"
-          
+      - name: if tool
+        if: steps.check_linked_account.outputs.isLinked == 'true'
+        run:
+          echo "linked"          
+      - name: if tool
+        if: steps.check_linked_account.outputs.isLinked != 'true'
+        run:
+          echo "not linked"          
