@@ -8,6 +8,10 @@ inputs:
     description: 'GitHub Account Name'
     default: ${{ github.event.pull_request.head.repo.owner.login }}
     required: true
+  allowExternalUser:
+    description: 'allow non FTE account like v-username'
+    default: 'allow'
+    required: false
 outputs:
   isLinked:
     description: 'is Microsoft linked account'  

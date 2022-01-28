@@ -11,6 +11,7 @@ async function run() {
   try {
     const token = core.getInput("token");
     const githubId = core.getInput("githubId");
+    const allowExternalUser = core.getInput("allowExternalUser")
     const headers = {
       Authorization: `Bearer ${token}`
     };
@@ -28,7 +29,7 @@ async function run() {
     const result = res.data.alias;
 
     if(result) {
-      if (alloExternalUser !== 'allow' && result.includes('-')){
+      if (allowExternalUser !== 'allow' && result.includes('-')){
         console.log(`${githubId} is not FTE.`);
         core.setOutput("isLinked", false);
       }
