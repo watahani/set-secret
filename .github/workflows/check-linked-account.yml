@@ -24,7 +24,7 @@ jobs:
 
       - name: check linked account
         id: check_linked_account
-        uses: ./.github/actions/check-linked-account/
+        uses: cssjpn/blog-gh-actions/check-linked-account@6a4d907
         with:
           githubId: "watahani"
           token: ${{ secrets.JPCSSBLOG_DEV_TOKEN }}

@@ -24,8 +24,6 @@ async function run() {
       }
     });
 
-    console.log(res);
-
     const result = res.data.alias;
 
     if(result) {
