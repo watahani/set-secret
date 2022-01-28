@@ -49,7 +49,7 @@ jobs:
       
       - name: is fte?
         env:
-          isLinked: ${{ steps.check_linked_account.outputs.isFte }}
+          isLinked: ${{ steps.check_linked_account.outputs.isLinked }}
         run: |
           echo "is linked: ${isLinked}"
           
