@@ -1,0 +1,13 @@
+name: 'get-jpcssblogdev-token'
+description: 'GitHub Action for posting bot comment to pull request'
+inputs:
+  token:
+    default: ${{ github.token }}
+    description: 'GitHub token'
+    required: true
+outputs:
+  token:
+    description: 'secret token to call jpcssblogdev api'  
+runs:
+  using: 'node12'
+  main: 'index.js'
