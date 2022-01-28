@@ -6,7 +6,7 @@ name: check linked account
 on:
   # Allows you to run this workflow manually from the Actions tab
   pull_request_target:
-    types: [opened, reopened, closed]
+    types: [opened, reopened, edited, closed]
 
 permissions:
   contents: read
